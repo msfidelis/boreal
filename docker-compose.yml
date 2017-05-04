@@ -1,0 +1,86 @@
+version: "3"
+services:
+  hapi:
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src/:/app/
+    environment: 
+
+      - MYSQL_MASTER_SERVER=db_write
+      - MYSQL_MASTER_USER=root
+      - MYSQL_MASTER_PASS=root
+      - MYSQL_MASTER_SCHEMA=test
+      - MYSQL_MASTER_PORT=3306
+
+      - MYSQL_READ_SERVER=db_read
+      - MYSQL_READ_USER=root
+      - MYSQL_READ_PASS=root
+      - MYSQL_READ_SCHEMA=test
+      - MYSQL_READ_PORT=3306
+
+      - MEMCACHED_SERVER=memcached
+      - MEMCACHED_PORT=11211
+
+      - REDIS_SERVER=redis
+      - REDIS_PORT=6379
+
+    networks:
+      - cluster
+
+  #Master Database
+  db_write:
+    image: mysql:5.7
+    container_name: mysql_write
+
+    volumes:
+      - ./tmp/write:/var/lib/mysql
+
+    ports:
+      - 2201:3306
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+
+    networks:
+      - cluster
+
+  #Read Replica Slave
+  db_read:
+    image: mysql:5.7
+    container_name: mysql_read
+
+    ports:
+      - 2202:3306
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+
+    volumes:
+      - ./tmp/write:/var/lib/mysql
+
+    networks:
+      - cluster
+
+  #Redis Server
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379"
+    networks:
+      - cluster
+
+  #Memcached Server
+  memcached:
+    image: memcached:alpine
+    ports:
+      - "11211"
+    networks:
+      - cluster
+
+networks:
+  cluster:
