@@ -4,7 +4,7 @@ services:
     restart: always
     build: .
     ports:
-      - "8080:8080"
+      - "8080:1337"
     volumes:
       - ./src/:/app/
     environment: 
