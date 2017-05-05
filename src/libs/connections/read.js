@@ -1,7 +1,7 @@
 'use strict';
 
-let knexfile = require('knexfile');
-let knex = require('knex')('read');
+let knexfile = require('./knexfile');
+let knex = require('knex')(knexfile['read']);
 
 /**
  * Conexão com o Banco de Dados

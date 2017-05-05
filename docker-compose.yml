@@ -27,14 +27,14 @@ services:
       - REDIS_SERVER=redis
       - REDIS_PORT=6379
 
+    command: nodemon index.js
+
     networks:
       - cluster
 
   #Master Database
   db_write:
     image: mysql:5.7
-    container_name: mysql_write
-
     volumes:
       - ./tmp/write:/var/lib/mysql
 
@@ -51,7 +51,6 @@ services:
   #Read Replica Slave
   db_read:
     image: mysql:5.7
-    container_name: mysql_read
 
     ports:
       - 2202:3306
@@ -61,7 +60,7 @@ services:
       - MYSQL_DATABASE=test
 
     volumes:
-      - ./tmp/write:/var/lib/mysql
+      - ./tmp/read:/var/lib/mysql
 
     networks:
       - cluster

@@ -1,0 +1,17 @@
+{
+  "name": "boreal",
+  "version": "1.0.0",
+  "description": "Boreal MySQL Restfy",
+  "main": "index.js",
+  "dependencies": {
+    "hapi": "^16.1.1",
+    "knex": "^0.13.0",
+    "mysql": "^2.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Matheus Fidelis",
+  "license": "ISC"
+}

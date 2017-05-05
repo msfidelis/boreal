@@ -15,12 +15,12 @@ let server = new Hapi.Server();
 /**
  * Read Database
  */
-let read = null
+let read = require('./libs/connections/read');
 
 /**
  * Master Database
  */
-let master = null
+let master = require('./libs/connections/write');
 
 server.connection({ port : 1337});
 
@@ -42,7 +42,20 @@ server.route({
   method: 'GET',
   path: '/v1/{table}',
   handler : function (req, res) {
-    res({'table' : encodeURIComponent(req.params.table)});
+    let querystring = req.query ? req.query : false
+
+    /**
+     * Fields
+     */
+    let fields = querystring._fields ? querystring._fields.split(":") : "*"
+
+    if (querystring._where) {
+      let where;
+
+      var statements = querystring._where.split(":")
+    }
+
+    res({'table' : querystring, 'fields':fields, 'where':statements});
   }
 });
 
@@ -86,7 +99,23 @@ server.route({
   method: 'POST',
   path: '/v1/_QUERY',
   handler : function (req, res) {
-    res({'operation' : 'query'});
+    
+    /**
+     * Verify if Query is Select 
+     */
+    let conn = (req.payload.query.toLowerCase().includes("select") ? read : master);
+
+    /**
+     * Execute Query
+     */
+    conn.raw(req.payload.query)
+    .then((err, response) => {
+      res(response)
+    }).catch((err) => {
+      console.log(err)
+      res(err)
+    })
+
   }
 });
 

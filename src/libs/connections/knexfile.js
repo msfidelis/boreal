@@ -47,8 +47,8 @@ module.exports = {
       host:     READ_HOST,
       port:     READ_PORT,
       database: READ_SCHEMA,
-      user:     MASTER_USER,
-      password: MASTER_PASS 
+      user:     READ_USER,
+      password: READ_PASS 
     },
     pool: {
       min: 2,
