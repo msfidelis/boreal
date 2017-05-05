@@ -39,23 +39,27 @@ server.route({
  * Select REST Route
  */
 server.route({
+
   method: 'GET',
   path: '/v1/{table}',
   handler : function (req, res) {
+    
     let querystring = req.query ? req.query : false
-
-    /**
-     * Fields
-     */
     let fields = querystring._fields ? querystring._fields.split(":") : "*"
+    let where = querystring._where ? querystring._where : null
+    
+    let query = read
+      .from(req.params.table)
+    	.select(fields)
+	    .whereRaw(where)
+	    .toString()
 
-    if (querystring._where) {
-      let where;
+    console.log(query)
 
-      var statements = querystring._where.split(":")
-    }
-
-    res({'table' : querystring, 'fields':fields, 'where':statements});
+    res({
+      'query' : query,
+      'result' : null
+	  });
   }
 });
 
