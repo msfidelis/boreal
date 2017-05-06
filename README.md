@@ -65,11 +65,13 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 
 ## Select Fields 
 
-```
+```bash
 http://localhost:1337/v1/table?_fields=id:name:age
+```
 
-Query: 
+### Output Query: 
 
+```sql
 select `id`, `name`, `age` from `table`
 ```
 
@@ -77,9 +79,11 @@ select `id`, `name`, `age` from `table`
 
 ```
 http://localhost:1337/v1/table?_fields=id:name:age&_where=id=12
+```
 
-Query:
+### Output Query:
 
+```sql
 select `id`, `name`, `age` from `table` where id = 12
 ```
 
