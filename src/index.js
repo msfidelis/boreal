@@ -46,15 +46,13 @@ server.route({
     
     let querystring = req.query ? req.query : false
     let fields = querystring._fields ? querystring._fields.split(":") : "*"
-    let where = querystring._where ? querystring._where : null
+    let where = querystring._where ? querystring._where : ""
     
     let query = read
       .from(req.params.table)
     	.select(fields)
-	    .whereRaw(where)
-	    .toString()
-
-    console.log(query)
+      .whereRaw(where)
+      .toString()
 
     res({
       'query' : query,
@@ -70,7 +68,12 @@ server.route({
   method: 'POST',
   path: '/v1/{table}',
   handler : function (req, res) {
-    res({'operation' : 'insert'});
+
+    let query = master(req.params.table)
+      .insert(req.payload)
+      .toString()
+
+    res({"query":query});
   }
 });
 
