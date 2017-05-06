@@ -84,7 +84,15 @@ server.route({
   method: 'PUT',
   path: '/v1/{table}',
   handler : function (req, res) {
-    res({'operation' : 'update'});
+
+    let where = req.payload.where ? req.payload.where : ""
+
+    let query = master(req.params.table)
+      .update(req.payload.data)
+      .whereRaw(where)
+      .toString()
+
+    res({"query":query});
   }
 });
 
@@ -95,12 +103,20 @@ server.route({
   method: 'DELETE',
   path: '/v1/{table}',
   handler : function (req, res) {
-    res({'operation' : 'delete'});
+
+    let where = req.payload.where ? req.payload.where : ""
+
+    let query = master(req.params.table)
+      .whereRaw(where)
+      .del()
+      .toString()
+
+    res({"query":query});
   }
 });
 
 /**
- * Raw Query REST ROute
+ * Raw Query REST Route
  */
 server.route({
   method: 'POST',

@@ -28,9 +28,11 @@ select `id`, `name`, `age` from `table` where id = 12
 
 ```
 http://localhost:1337/v1/table?_fields=id:name:age&_where=id=12 AND age > 12 OR NAME = 'matheus'
+```
 
-Query:
+### Query Output:
 
+```sql
 select `id`, `name`, `age` from `table` where id = 12
 ```
 
@@ -50,3 +52,38 @@ $ curl -X POST \
 ```sql
 insert into `table` (`age`, `name`) values (21, 'Matheus Fidelis')
 ```
+
+
+# UPDATE
+
+### Request PUT/PATCH 
+
+```bash
+curl -X PUT \
+    -H "Content-type: Application/json" \
+    -d '{ "data": {"name":"Matheus Fidelis", "age":21}, "where":"id = 12 and user = `Matheus`"}' \
+    localhost:1337/v1/table
+```
+
+### Output Query
+
+```sql
+update `table` set `age` = 21, `name` = 'Matheus Fidelis' where id = 12 and user = `Matheus`
+```
+
+
+# DELETE
+
+```bash
+curl -X DELETE \
+    -H "Content-type: Application/json" \
+    -d '{"where":"id = 12 and user = `Matheus`"}' \
+    localhost:1337/v1/table
+```
+
+### Output Query
+
+```sql 
+delete from `table` where id = 12 and user = `Matheus`
+```
+
