@@ -128,16 +128,20 @@ server.route({
      */
     let conn = (req.payload.query.toLowerCase().includes("select") ? read : master);
 
+    let query = conn.raw(req.payload.query).toString()
+
+    res({"query":query})
+
     /**
      * Execute Query
      */
-    conn.raw(req.payload.query)
-    .then((err, response) => {
-      res(response)
-    }).catch((err) => {
-      console.log(err)
-      res(err)
-    })
+    // conn.raw(req.payload.query)
+    // .then((err, response) => {
+    //   res(response)
+    // }).catch((err) => {
+    //   console.log(err)
+    //   res(err)
+    // })
 
   }
 });

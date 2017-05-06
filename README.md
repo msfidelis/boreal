@@ -87,3 +87,18 @@ curl -X DELETE \
 delete from `table` where id = 12 and user = `Matheus`
 ```
 
+# Raw Query
+
+```bash
+$ curl -X POST \
+    -H "Content-type: Application/json" \
+    -d '{"query":"SELECT CONCAT_WS(`,`,`First name`,`Second name`,`Last Name`"}' \
+    localhost:1337/v1/table
+```
+
+### Output Query
+```sql
+SELECT CONCAT_WS(`,`,`First name`,`Second name`,`Last Name`
+```
+
+
