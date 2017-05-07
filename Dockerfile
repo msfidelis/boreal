@@ -3,7 +3,7 @@ MAINTAINER Matheus Fidelis <msfidelis01@gmail.com>
 
 # RUN apk add --update nodejs npm 
 # RUN npm install npm@latest -g
-RUN npm install -g nodemon
+# RUN npm install -g nodemon
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -12,4 +12,4 @@ COPY src /app
 
 RUN npm install
 
-CMD ["nodemon", "index.js"]
+CMD ["node", "index.js"]
