@@ -148,7 +148,7 @@ curl -X DELETE \
 delete from `table` where id = 12 and user = `Matheus`
 ```
 
-# Raw Query
+# RAW QUERY
 
 ```bash
 $ curl -X POST \

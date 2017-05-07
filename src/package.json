@@ -6,7 +6,9 @@
   "dependencies": {
     "hapi": "^16.1.1",
     "knex": "^0.13.0",
-    "mysql": "^2.13.0"
+    "memjs": "^0.10.2",
+    "mysql": "^2.13.0",
+    "redis": "^2.7.1"
   },
   "devDependencies": {},
   "scripts": {

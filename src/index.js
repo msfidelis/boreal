@@ -66,8 +66,10 @@ server.route({
 
         res(result).code(statuscode)
       }).catch((err) => {
+
         console.log(err)
         res(err).code(404)
+        
       });
   }
 });
@@ -122,7 +124,7 @@ server.route({
   handler: function (req, res) {
 
     let where = req.payload.where ? req.payload.where : ""
-    console.log(where)
+
     master(req.params.table)
       .whereRaw(where)
       .del()
