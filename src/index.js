@@ -1,4 +1,3 @@
-
 'use strict'
 
 /**
@@ -7,9 +6,9 @@
 let Hapi = require('hapi');
 
 /**
-* Server Configuration
-* @type {Hapi}
-*/
+ * Server Configuration
+ * @type {Hapi}
+ */
 let server = new Hapi.Server();
 
 /**
@@ -23,12 +22,12 @@ let read = require('./libs/connections/read');
 let master = require('./libs/connections/write');
 
 server.connection({
-    port: 1337,
-    routes: {
-        json: {
-            space: 4
-        }
+  port: 1337,
+  routes: {
+    json: {
+      space: 4
     }
+  }
 });
 
 /**
@@ -37,8 +36,10 @@ server.connection({
 server.route({
   method: 'GET',
   path: '/v1/alive',
-  handler : function (req, res) {
-    res({'alive' : 'true'});
+  handler: function (req, res) {
+    res({
+      'alive': 'true'
+    });
   }
 });
 
@@ -49,17 +50,17 @@ server.route({
 
   method: 'GET',
   path: '/v1/{table}',
-  handler : function (req, res) {
-    
+  handler: function (req, res) {
+
     let querystring = req.query ? req.query : false
     let fields = querystring._fields ? querystring._fields.split(":") : "*"
     let where = querystring._where ? querystring._where : ""
-    
+
     read
       .from(req.params.table)
-    	.select(fields)
+      .select(fields)
       .whereRaw(where)
-      .then((result) => { 
+      .then((result) => {
         res(result)
       }).catch((err) => {
         console.log(err)
@@ -74,7 +75,7 @@ server.route({
 server.route({
   method: 'POST',
   path: '/v1/{table}',
-  handler : function (req, res) {
+  handler: function (req, res) {
 
     master(req.params.table)
       .insert(req.payload)
@@ -94,16 +95,18 @@ server.route({
 server.route({
   method: 'PUT',
   path: '/v1/{table}',
-  handler : function (req, res) {
+  handler: function (req, res) {
 
     let where = req.payload.where ? req.payload.where : ""
 
-    let query = master(req.params.table)
+    master(req.params.table)
       .update(req.payload.data)
       .whereRaw(where)
-      .toString()
-
-    res({"query":query});
+      .then((result) => {
+        res(result).code(200)
+      }).catch((err) => {
+        res(err).code(500)
+      })
   }
 });
 
@@ -113,16 +116,18 @@ server.route({
 server.route({
   method: 'DELETE',
   path: '/v1/{table}',
-  handler : function (req, res) {
+  handler: function (req, res) {
 
     let where = req.payload.where ? req.payload.where : ""
 
-    let query = master(req.params.table)
+    master(req.params.table)
       .whereRaw(where)
       .del()
-      .toString()
-
-    res({"query":query});
+      .then((result) => {
+        res(result).code(204)
+      }).catch((err) => {
+        res(err).code(500)
+      })
   }
 });
 
@@ -132,32 +137,23 @@ server.route({
 server.route({
   method: 'POST',
   path: '/v1/_QUERY',
-  handler : function (req, res) {
-    
-    /**
-     * Verify if Query is Select 
-     */
+  handler: function (req, res) {
+
     let conn = (req.payload.query.toLowerCase().includes("select") ? read : master);
 
-    let query = conn.raw(req.payload.query).toString()
-
-    res({"query":query})
-
-    /**
-     * Execute Query
-     */
-    // conn.raw(req.payload.query)
-    // .then((err, response) => {
-    //   res(response)
-    // }).catch((err) => {
-    //   console.log(err)
-    //   res(err)
-    // })
+    conn.raw(req.payload.query)
+      .then((result) => {
+        res(result).code(200)
+      }).catch((err) => {
+        res(err).code(500)
+      })
 
   }
 });
 
-
+/**
+ * Start Server
+ */
 server.start((err) => {
   if (err) {
     throw err;

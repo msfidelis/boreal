@@ -122,8 +122,8 @@ insert into `table` (`age`, `name`) values (21, 'Matheus Fidelis')
 ```bash
 curl -X PUT \
     -H "Content-type: Application/json" \
-    -d '{ "data": {"name":"Matheus Fidelis", "age":21}, "where":"id = 12 and user = `Matheus`"}' \
-    localhost:1337/v1/table
+    -d '{ "data": {"name":"Matheus Fidelis changed", "age":21}, "where":"id = 12"}' \
+    localhost:1337/v1/users
 ```
 
 ### Output Query
@@ -138,8 +138,8 @@ update `table` set `age` = 21, `name` = 'Matheus Fidelis' where id = 12 and user
 ```bash
 curl -X DELETE \
     -H "Content-type: Application/json" \
-    -d '{"where":"id = 12 and user = `Matheus`"}' \
-    localhost:1337/v1/table
+    -d '{"where":"id = 12 and user = `Matheus Fidelis`"}' \
+    localhost:1337/v1/users
 ```
 
 ### Output Query
