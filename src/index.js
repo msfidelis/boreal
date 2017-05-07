@@ -22,7 +22,14 @@ let read = require('./libs/connections/read');
  */
 let master = require('./libs/connections/write');
 
-server.connection({ port : 1337});
+server.connection({
+    port: 1337,
+    routes: {
+        json: {
+            space: 4
+        }
+    }
+});
 
 /**
  * Alive
