@@ -4,7 +4,7 @@ services:
     restart: always
     build: .
     ports:
-      - "8080:1337"
+      - "1337:1337"
     volumes:
       - ./src/:/app/
     environment: 
@@ -15,17 +15,17 @@ services:
       - MYSQL_MASTER_SCHEMA=test
       - MYSQL_MASTER_PORT=3306
 
-      - MYSQL_READ_SERVER=db_read
-      - MYSQL_READ_USER=root
-      - MYSQL_READ_PASS=root
-      - MYSQL_READ_SCHEMA=test
-      - MYSQL_READ_PORT=3306
+      # - MYSQL_READ_SERVER=db_read
+      # - MYSQL_READ_USER=root
+      # - MYSQL_READ_PASS=root
+      # - MYSQL_READ_SCHEMA=test
+      # - MYSQL_READ_PORT=3306
 
-      - MEMCACHED_SERVER=memcached
-      - MEMCACHED_PORT=11211
+      # - MEMCACHED_SERVER=memcached
+      # - MEMCACHED_PORT=11211
 
-      - REDIS_SERVER=redis
-      - REDIS_PORT=6379
+      # - REDIS_SERVER=redis
+      # - REDIS_PORT=6379
 
     command: nodemon index.js
 
@@ -48,38 +48,38 @@ services:
     networks:
       - cluster
 
-  #Read Replica Slave
-  db_read:
-    image: mysql:5.7
+  # #Read Replica Slave
+  # db_read:
+  #   image: mysql:5.7
 
-    ports:
-      - 2202:3306
+  #   ports:
+  #     - 2202:3306
 
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=test
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_DATABASE=test
 
-    volumes:
-      - ./tmp/read:/var/lib/mysql
+  #   volumes:
+  #     - ./tmp/read:/var/lib/mysql
 
-    networks:
-      - cluster
+  #   networks:
+  #     - cluster
 
-  #Redis Server
-  redis:
-    image: redis:alpine
-    ports:
-      - "6379"
-    networks:
-      - cluster
+  # #Redis Server
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379"
+  #   networks:
+  #     - cluster
 
-  #Memcached Server
-  memcached:
-    image: memcached:alpine
-    ports:
-      - "11211"
-    networks:
-      - cluster
+  # #Memcached Server
+  # memcached:
+  #   image: memcached:alpine
+  #   ports:
+  #     - "11211"
+  #   networks:
+  #     - cluster
 
 networks:
   cluster:

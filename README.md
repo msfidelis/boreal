@@ -106,7 +106,7 @@ select `id`, `name`, `age` from `table` where id = 12
 $ curl -X POST \
     -H "Content-type: Application/json" \
     -d '{"name":"Matheus Fidelis", "age":21}' \
-    localhost:1337/v1/table
+    localhost:1337/v1/users
 ```
 ### Output Query
 

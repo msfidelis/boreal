@@ -48,16 +48,16 @@ server.route({
     let fields = querystring._fields ? querystring._fields.split(":") : "*"
     let where = querystring._where ? querystring._where : ""
     
-    let query = read
+    read
       .from(req.params.table)
     	.select(fields)
       .whereRaw(where)
-      .toString()
-
-    res({
-      'query' : query,
-      'result' : null
-	  });
+      .then((result) => { 
+        res(result)
+      }).catch((err) => {
+        console.log(err)
+        res(err).code(404)
+      });
   }
 });
 
@@ -69,11 +69,15 @@ server.route({
   path: '/v1/{table}',
   handler : function (req, res) {
 
-    let query = master(req.params.table)
+    master(req.params.table)
       .insert(req.payload)
-      .toString()
+      .then((result) => {
+        res(result).code(201)
+      }).catch((err) => {
+        console.log(err)
+        res(err)
+      })
 
-    res({"query":query});
   }
 });
 
