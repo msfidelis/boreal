@@ -61,7 +61,10 @@ server.route({
       .select(fields)
       .whereRaw(where)
       .then((result) => {
-        res(result)
+
+        statuscode = (result.length > 0) ? 200 : 404
+
+        res(result).code(statuscode)
       }).catch((err) => {
         console.log(err)
         res(err).code(404)
@@ -119,15 +122,16 @@ server.route({
   handler: function (req, res) {
 
     let where = req.payload.where ? req.payload.where : ""
-
+    console.log(where)
     master(req.params.table)
       .whereRaw(where)
       .del()
       .then((result) => {
         res(result).code(204)
-      }).catch((err) => {
-        res(err).code(500)
       })
+      // .catch((err) => {
+      //   res(err).code(500)
+      // })
   }
 });
 

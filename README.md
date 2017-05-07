@@ -61,7 +61,7 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 
 
 
-# Select 
+# SELECT
 
 ## Select Fields 
 
@@ -138,7 +138,7 @@ update `table` set `age` = 21, `name` = 'Matheus Fidelis' where id = 12 and user
 ```bash
 curl -X DELETE \
     -H "Content-type: Application/json" \
-    -d '{"where":"id = 12 and user = `Matheus Fidelis`"}' \
+    -d '{"where":"id = 12 and name = `Matheus Fidelis`"}' \
     localhost:1337/v1/users
 ```
 
