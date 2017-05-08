@@ -1,7 +1,7 @@
 # boreal-nodev1
 REST Provider for MySQL, MariaDB and Amazon Aurora servers running in containers! 
 
-[![Build Status](https://secure.travis-ci.org/msfidelis/boreal.png?branch=master)](http://travis-ci.org/msfidelis/boreal) [![Code Climate](https://codeclimate.com/github/msfidelis/boreal/badges/gpa.svg)](https://codeclimate.com/github/boreal/boreal)
+[![Build Status](https://secure.travis-ci.org/msfidelis/boreal.png?branch=master)](http://travis-ci.org/msfidelis/boreal) [![Code Climate](https://codeclimate.com/github/msfidelis/boreal/badges/gpa.svg)](https://codeclimate.com/github/msfidelis/boreal)
 
 ![Aurora](http://i.imgur.com/XdRQN3k.jpg)
 
