@@ -22,7 +22,7 @@ module.exports = [
     path: '/v1/alive',
     handler: function (req, res) {
         res({
-        'alive': 'true'
+            'alive': 'true'
         });
     }
   },
@@ -47,8 +47,8 @@ module.exports = [
         .then((result) => {
 
             statuscode = (result.length > 0) ? 200 : 404
-
             res(result).code(statuscode)
+
         }).catch((err) => {
 
             console.log(err)
@@ -70,10 +70,14 @@ module.exports = [
     master(req.params.table)
       .insert(req.payload)
       .then((result) => {
+
         res(result).code(201)
+
       }).catch((err) => {
+
         console.log(err)
-        res(err)
+        res(err).code(500)
+
       })
     }
   },
@@ -93,9 +97,13 @@ module.exports = [
         .update(req.payload.data)
         .whereRaw(where)
         .then((result) => {
+
             res(result).code(200)
+
         }).catch((err) => {
+
             res(err).code(500)
+
         })
     }
   },
@@ -115,10 +123,14 @@ module.exports = [
         .whereRaw(where)
         .del()
         .then((result) => {
+
             res(result).code(204)
+
         })
         .catch((err) => {
+
           res(err).code(500)
+
         })
     }
   },
@@ -136,9 +148,13 @@ module.exports = [
 
         conn.raw(req.payload.query)
         .then((result) => {
+
             res(result).code(200)
+
         }).catch((err) => {
+
             res(err).code(500)
+            
         })
 
     }
