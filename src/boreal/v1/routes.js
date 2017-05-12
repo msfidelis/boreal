@@ -67,11 +67,25 @@ module.exports = [
     path: '/v1/{table}',
     handler: function (req, res) {
 
-    master(req.params.table)
-      .insert(req.payload)
-      .then((result) => {
+    var execution = {}
 
-        res(result).code(201)
+    master(req.params.table)
+      .insert(req.payload.data)
+      .on('query-response', (response, obj, builder) => {
+
+        // Query infos 
+        execution.info = {
+            query_uuid: obj.__knexQueryUid,
+            sql : obj.sql,
+            bindings : obj.bindings,
+            affectedRows : obj.response[0].affectedRows           
+        }
+
+      })
+      .then((result) => {
+        
+        execution.data = result
+        res(execution).code(201)
 
       }).catch((err) => {
 
