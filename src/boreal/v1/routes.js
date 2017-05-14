@@ -40,14 +40,27 @@ module.exports = [
         let fields = querystring._fields ? querystring._fields.split(":") : "*"
         let where = querystring._where ? querystring._where : ""
 
+        var execution = {}
+
         read
         .from(req.params.table)
         .select(fields)
         .whereRaw(where)
-        .then((result) => {
-            console.log("Query exec")
+        .on('query-response', (response, obj, builder) => {
+
+        // Query infos 
+        execution.info = {
+            query_uuid: obj.__knexQueryUid,
+            sql : obj.sql,
+            bindings : obj.bindings,
+            affectedRows : obj.response[0].affectedRows           
+        }
+
+        }).then((result) => {
+
             statuscode = (result.length > 0) ? 200 : 404
-            res(result).code(statuscode)
+            execution.data = result 
+            res(execution).code(statuscode)
 
         }).catch((err) => {
 
@@ -106,13 +119,25 @@ module.exports = [
     handler: function (req, res) {
 
         let where = req.payload.where ? req.payload.where : ""
+        var execution = {}
 
         master(req.params.table)
         .update(req.payload.data)
         .whereRaw(where)
+        .on('query-response', (response, obj, builder) => {
+
+        execution.info = {
+            query_uuid: obj.__knexQueryUid,
+            sql : obj.sql,
+            bindings : obj.bindings,
+            affectedRows : obj.response[0].affectedRows           
+        }
+
+        })
         .then((result) => {
 
-            res(result).code(200)
+            execution.data = result
+            res(execution).code(200)
 
         }).catch((err) => {
 
@@ -143,7 +168,7 @@ module.exports = [
         })
         .catch((err) => {
 
-          res(err).code(500)
+          res(err)
 
         })
     }
