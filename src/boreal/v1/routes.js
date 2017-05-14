@@ -45,7 +45,7 @@ module.exports = [
         .select(fields)
         .whereRaw(where)
         .then((result) => {
-
+            console.log("Query exec")
             statuscode = (result.length > 0) ? 200 : 404
             res(result).code(statuscode)
 
