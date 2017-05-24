@@ -181,7 +181,7 @@ module.exports = [
   {
     method: 'POST',
     path: '/v1/_QUERY',
-    handler: function (req, res) {
+    handler:  (req, res) => {
 
         let conn = (req.payload.query.toLowerCase().includes("select") ? read : master);
 
@@ -193,6 +193,71 @@ module.exports = [
         }).catch((err) => {
 
             res(err).code(500)
+            
+        })
+    }
+  },
+  /**
+   * DESCRIBE TABLE
+   */
+  {
+      method: 'GET',
+      path: '/v1/_DESCRIBE/{table}',
+      handler: (req, res) => {
+
+        let query = "DESCRIBE " + req.params.table
+        read.raw(query)
+        .then((result) => {
+
+
+
+        })
+        .catch((err) => {
+
+
+
+        })
+      }
+  },
+
+  /**
+   * SHOW CREATE TABLE
+   */
+  {
+    method: 'GET',
+    path: '/v1/_SHOWCREATE/{table}',
+    handler: (req, res) => {
+
+        let query = "SHOW CREATE TABLE " + req.params.table
+
+        read.raw(query)
+        .then((result) => {
+
+
+        })
+        .catch((err) => {
+
+
+        })
+
+    }
+  },
+
+  /**
+   * PROCESS LIST
+   */
+  {
+    method: 'GET', 
+    path: '/v1/_PROCESSLIST', 
+    handler: (req, res) => {
+
+        let query = "SHOW PROCESSLIST"
+
+        read.raw(query)
+        .then((result) => {
+
+        })
+        .catch((err) => {
             
         })
 

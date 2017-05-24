@@ -19,6 +19,9 @@ if (process.env.REDIS_SERVER) {
     cache = redis(REDIS_SERVER, SERVER_PORT)
 }
 
-module.exports = function () {
+/**
+ * Exports Cache API
+ */
+module.exports = () => {
     return cache
 }

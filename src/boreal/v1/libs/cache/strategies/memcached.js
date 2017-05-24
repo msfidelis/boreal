@@ -7,10 +7,13 @@ var memjs = require('memjs');
  * @param {*} server 
  * @param {*} port 
  */
-var connection = function (server, port) {
+var connection =  (server, port) => {
     return memjs.Client.create(server + ":" + port)
 }
 
-module.exports = function() {
+/**
+ * Export Memcache Instance
+ */
+module.exports = () => {
     return connection
 }
