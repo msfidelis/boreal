@@ -2,12 +2,19 @@
 /**
  * Read Database
  */
-let read = require('./libs/connections/read');
-
+const read = require('./libs/connections/read')
 /**
  * Master Database
  */
-let master = require('./libs/connections/write');
+const master = require('./libs/connections/write')
+/**
+ * Cache Client
+ */
+const cache = require('./libs/cache/cache-client')
+/**
+ * Boom
+ */
+const boom = require('boom')
 
 /**
  * V1 Routes
@@ -26,7 +33,6 @@ module.exports = [
         });
     }
   },
-
   /**
    * SELECT Method v1
    * Create a Query Builder using URL Params
@@ -65,12 +71,11 @@ module.exports = [
         }).catch((err) => {
 
             console.log(err)
-            res(err).code(404)
+            res(err).code(500)
             
         });
     }
   },
-
   /**
    * INSERT Method v1
    * Create a Query Builder using a POST params in Body Request
@@ -108,7 +113,6 @@ module.exports = [
       })
     }
   },
-
   /**
    * UPDATE Method v1
    * Query Builder create using PUT/PATCH params in Body Request
@@ -146,7 +150,6 @@ module.exports = [
         })
     }
   },
-
   /**
    * DELETE Method v1
    * Query Builder created using DELETE Params in Body Requests
@@ -173,7 +176,6 @@ module.exports = [
         })
     }
   },
-
   /**
    * RAW Query Method
    * Query Raw sended in Body Requests using POST Method
@@ -209,17 +211,12 @@ module.exports = [
         read.raw(query)
         .then((result) => {
 
-
-
         })
         .catch((err) => {
-
-
 
         })
       }
   },
-
   /**
    * SHOW CREATE TABLE
    */
@@ -231,18 +228,15 @@ module.exports = [
         let query = "SHOW CREATE TABLE " + req.params.table
 
         read.raw(query)
-        .then((result) => {
-
+        .then((result) => { 
 
         })
         .catch((err) => {
-
 
         })
 
     }
   },
-
   /**
    * PROCESS LIST
    */
@@ -258,7 +252,7 @@ module.exports = [
 
         })
         .catch((err) => {
-            
+
         })
 
     }
