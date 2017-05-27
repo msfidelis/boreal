@@ -1,6 +1,6 @@
 'use strict'
 
-redis = require('redis')
+const redis = require('redis')
 
 /**
  * Redis Factory

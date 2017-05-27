@@ -1,6 +1,6 @@
 'use strict'
 
-var memjs = require('memjs');
+const memjs = require('memjs');
 
 /**
  * Memcached Factory

@@ -91,7 +91,6 @@ module.exports = [
       .insert(req.payload.data)
       .on('query-response', (response, obj, builder) => {
 
-        // Query infos 
         execution.info = {
             query_uuid: obj.__knexQueryUid,
             sql : obj.sql,
@@ -171,7 +170,7 @@ module.exports = [
         })
         .catch((err) => {
 
-          res(err)
+          res(err).code(500)
 
         })
     }
@@ -208,12 +207,30 @@ module.exports = [
       handler: (req, res) => {
 
         let query = "DESCRIBE " + req.params.table
+        
+        var execution = {}
+
         read.raw(query)
+        .on('query-response', (response, obj, builder) => {
+
+        execution.info = {
+            query_uuid: obj.__knexQueryUid,
+            sql : obj.sql,
+            affectedRows : obj.response[0].affectedRows           
+        }
+
+        })
         .then((result) => {
 
+            execution.data = result
+            res(execution).code(200)
+            
         })
         .catch((err) => {
 
+            exection.error = err
+            res(execution).code(500)
+            
         })
       }
   },
@@ -226,12 +243,28 @@ module.exports = [
     handler: (req, res) => {
 
         let query = "SHOW CREATE TABLE " + req.params.table
+        var execution = {}
 
         read.raw(query)
+        .on('query-response', (response, obj, builder) => {
+
+        execution.info = {
+            query_uuid: obj.__knexQueryUid,
+            sql : obj.sql,
+            affectedRows : obj.response[0].affectedRows           
+        }
+
+        })
         .then((result) => { 
+
+            execution.data = result
+            res(execution).code(200)
 
         })
         .catch((err) => {
+
+            exection.error = err
+            res(execution).code(500)
 
         })
 
@@ -246,12 +279,28 @@ module.exports = [
     handler: (req, res) => {
 
         let query = "SHOW PROCESSLIST"
+        var execution = {}
 
         read.raw(query)
+        .on('query-response', (response, obj, builder) => {
+
+        execution.info = {
+            query_uuid: obj.__knexQueryUid,
+            sql : obj.sql,
+            affectedRows : obj.response[0].affectedRows           
+        }
+
+        })
         .then((result) => {
+
+            execution.data = result
+            res(execution).code(200)
 
         })
         .catch((err) => {
+
+            exection.error = err
+            res(execution).code(500)
 
         })
 
