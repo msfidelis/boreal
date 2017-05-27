@@ -1,16 +1,19 @@
 'use strict'
 
-redis = require('redis')
+const redis = require('redis')
 
 /**
  * Redis Factory
  * @param {*} server 
  * @param {*} port 
  */
-var connect = function(server, port) {
+var connect = (server, port) => {
     return redis.createClient(port, server,  {no_ready_check: true});
 }
 
-module.exports = function() {
+/**
+ * Export Redis Instance
+ */
+module.exports = () => {
     return connection
 }

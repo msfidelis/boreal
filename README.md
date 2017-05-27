@@ -102,18 +102,31 @@ select `id`, `name`, `age` from `users` where id = 12
 
 # INSERT
 
+## INSERT A SINGLE ROW
+
 ### Request POST 
 
 ```bash
 $ curl -X POST \
     -H "Content-type: Application/json" \
-    -d '{"name":"Matheus Fidelis", "age":21}' \
+    -d '{ "data" : {"name":"Matheus Fidelis", "age":21}}' \
     localhost:1337/v1/users
 ```
 ### Output Query
 
 ```sql
 insert into `users` (`age`, `name`) values (21, 'Matheus Fidelis')
+```
+
+## INSERT BULK DATA
+
+### Request POST
+
+```bash
+$ curl -X POST \
+    -H "Content-type: Application/json" \
+    -d '{ "data" : [{"name":"Matheus Fidelis", "age":21}, {"name":"Dunha", "age":30}]}' \
+    localhost:1337/v1/users
 ```
 
 

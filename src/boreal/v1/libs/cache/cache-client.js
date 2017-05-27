@@ -1,9 +1,9 @@
 'use strict';
 
-memcached = require('./strategies/memcached')
-redis = require('./strategies/redis')
+const memcached = require('./strategies/memcached')
+const redis = require('./strategies/redis')
 
-let cache = null
+const cache = null
 
 /**
  * Memcached Client
@@ -19,6 +19,9 @@ if (process.env.REDIS_SERVER) {
     cache = redis(REDIS_SERVER, SERVER_PORT)
 }
 
-module.exports = function () {
+/**
+ * Exports Cache API
+ */
+module.exports = () => {
     return cache
 }
