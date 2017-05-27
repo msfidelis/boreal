@@ -29,7 +29,7 @@ server.connection({
 server.register({
   register: require('hapi-router'),
   options: {
-    routes: 'boreal/**/routes.js' 
+    routes: 'boreal/v*/*.js' 
   }
 }, function (err) {
   if (err) throw err;
