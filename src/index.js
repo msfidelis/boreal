@@ -3,13 +3,13 @@
 /**
  * Hapi JS
  */
-let Hapi = require('hapi');
+let Hapi = require('hapi')
 
 /**
  * Server Configuration
  * @type {Hapi}
  */
-let server = new Hapi.Server();
+let server = new Hapi.Server()
 
 /**
  * Connection Params
@@ -21,7 +21,7 @@ server.connection({
       space: 4
     }
   }
-});
+})
 
 /**
  * Plugin Register - Hapi-Router
@@ -33,7 +33,7 @@ server.register({
   }
 }, function (err) {
   if (err) throw err;
-});
+})
 
 /**
  * Start Server
@@ -45,4 +45,4 @@ server.start((err) => {
 
   console.log('Boreal Server Running At: ', server.info.uri)
 
-});
+})

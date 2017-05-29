@@ -85,7 +85,7 @@ module.exports = [
 				})
 				.catch((err) => {
 
-					exection.error = err
+					execution.error = err
 					res(execution).code(500)
 
 				})
@@ -121,7 +121,7 @@ module.exports = [
 				})
 				.catch((err) => {
 
-					exection.error = err
+					execution.error = err
 					res(execution).code(500)
 
 				})
