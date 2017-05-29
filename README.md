@@ -168,8 +168,8 @@ delete from `users` where id = 12 and user = `Matheus`
 ```bash
 $ curl -X POST \
     -H "Content-type: Application/json" \
-    -d '{"query":"SELECT CONCAT_WS(`,`,`First name`,`Second name`,`Last Name`"}' \
-    localhost:1337/v1/users
+    -d '{"query":"SELECT * FROM users"}' \
+    localhost:1337/v1/_QUERY
 ```
 
 ### Output Query

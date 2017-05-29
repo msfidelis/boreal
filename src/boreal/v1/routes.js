@@ -185,6 +185,8 @@ module.exports = [
 
 			let conn = (req.payload.query.toLowerCase().includes("select") ? read : master);
 
+			console.log(req.payload.query)
+
 			conn.raw(req.payload.query)
 				.then((result) => {
 
