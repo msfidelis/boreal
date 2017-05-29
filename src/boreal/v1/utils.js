@@ -25,10 +25,82 @@ module.exports = [
 	 */
 	{
 		method: 'GET',
-		path: '/v1/_FLUSH',
+		path: '/v1/_FLUSHTABLES',
 		handler: (req, res) => {
 
 			let query = "FLUSH TABLES"
+			var execution = {}
+
+			read.raw(query)
+				.on('query-response', (response, obj, builder) => {
+
+					execution.info = {
+						query_uuid: obj.__knexQueryUid,
+						sql: obj.sql,
+						affectedRows: obj.response[0].affectedRows
+					}
+
+				})
+				.then((result) => {
+
+					execution.data = result
+					res(execution).code(200)
+
+				})
+				.catch((err) => {
+
+					exection.error = err
+					res(execution).code(500)
+
+				})
+
+		}
+	},
+	/**
+	 * RESET QUERY CACHE FROM MEMORY
+	 */
+	{
+		method: 'GET',
+		path: '/v1/_RESETQUERYCACHE',
+		handler: (req, res) => {
+
+			let query = "RESET QUERY CACHE"
+			var execution = {}
+
+			read.raw(query)
+				.on('query-response', (response, obj, builder) => {
+
+					execution.info = {
+						query_uuid: obj.__knexQueryUid,
+						sql: obj.sql,
+						affectedRows: obj.response[0].affectedRows
+					}
+
+				})
+				.then((result) => {
+
+					execution.data = result
+					res(execution).code(200)
+
+				})
+				.catch((err) => {
+
+					exection.error = err
+					res(execution).code(500)
+
+				})
+
+		}
+	},
+	/**
+	 * FLUSH QUERY CACHE FROM MEMORY
+	 */
+	{
+		method: 'GET',
+		path: '/v1/_FLUSHQUERYCACHE',
+		handler: (req, res) => {
+
+			let query = "FLUSH QUERY CACHE"
 			var execution = {}
 
 			read.raw(query)
@@ -173,7 +245,7 @@ module.exports = [
 		path: '/v1/_SHOWTABLES',
 		handler: (req, res) => {
 
-			let query = "SHOW TABLES"
+			let query = "SHOW TABLES	"
 
 			var execution = {}
 
