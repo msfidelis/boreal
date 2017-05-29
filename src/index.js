@@ -3,7 +3,7 @@
 /**
  * Hapi JS
  */
-let Hapi = require('hapi')
+let Hapi = require('hapi')  
 
 /**
  * Server Configuration
@@ -18,7 +18,7 @@ server.connection({
   port: 1337,
   routes: {
     json: {
-      space: 4
+      space: 2
     }
   }
 })

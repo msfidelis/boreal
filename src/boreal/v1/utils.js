@@ -163,5 +163,42 @@ module.exports = [
 
 				})
 		}
+	},
+
+	/**
+	 * 
+	 */
+	{
+		method: 'GET',
+		path: '/v1/_SHOWTABLES',
+		handler: (req, res) => {
+
+			let query = "SHOW TABLES"
+
+			var execution = {}
+
+			read.raw(query)
+				.on('query-response', (response, obj, builder) => {
+
+					execution.info = {
+						query_uuid: obj.__knexQueryUid,
+						sql: obj.sql,
+						affectedRows: obj.response[0].affectedRows
+					}
+
+				})
+				.then((result) => {
+
+					execution.data = result
+					res(execution).code(200)
+
+				})
+				.catch((err) => {
+
+					exection.error = err
+					res(execution).code(500)
+
+				})
+		}
 	}
 ]
