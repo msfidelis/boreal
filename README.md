@@ -15,7 +15,7 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	-e MYSQL_MASTER_USER=root \
 	-e MYSQL_MASTER_PASS=pass \
 	-e MYSQL_MASTER_SCHEMA=payments \
-    	-e MYSQL_MASTER_PORT=3306 \
+    -e MYSQL_MASTER_PORT=3306 \
 	msfidelis/boreal
 ```
 
@@ -26,12 +26,12 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	-e MYSQL_MASTER_USER=root \
 	-e MYSQL_MASTER_PASS=pass \
 	-e MYSQL_MASTER_SCHEMA=payments \
-    	-e MYSQL_MASTER_PORT=3306 \
-    	-e MYSQL_READ_SERVER=http://read.rds.com.br \
+    -e MYSQL_MASTER_PORT=3306 \
+    -e MYSQL_READ_SERVER=http://read.rds.com.br \
 	-e MYSQL_READ_USER=root \
 	-e MYSQL_READ_PASS=pass \
 	-e MYSQL_READ_SCHEMA=payments_replica \
-    	-e MYSQL_READ_PORT=3306 \
+    -e MYSQL_READ_PORT=3306 \
 	msfidelis/boreal
 ```
 
@@ -42,9 +42,9 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	-e MYSQL_MASTER_USER=root \
 	-e MYSQL_MASTER_PASS=pass \
 	-e MYSQL_MASTER_SCHEMA=payments \
-    	-e MYSQL_MASTER_PORT=3306 \
-    	-e MEMCACHED_SERVER=http://memcached.com.br \
-    	-e MEMCACHED_PORT=11211 \
+    -e MYSQL_MASTER_PORT=3306 \
+    -e MEMCACHED_SERVER=http://memcached.com.br \
+    -e MEMCACHED_PORT=11211 \
 	msfidelis/boreal
 ```
 
@@ -55,9 +55,9 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	-e MYSQL_MASTER_USER=root \
 	-e MYSQL_MASTER_PASS=pass \
 	-e MYSQL_MASTER_SCHEMA=payments \
-    	-e MYSQL_MASTER_PORT=3306 \
-    	-e REDIS_SERVER=http://redis.com.br \
-    	-e REDIS_PORT=6379 \
+    -e MYSQL_MASTER_PORT=3306 \
+    -e REDIS_SERVER=http://redis.com.br \
+    -e REDIS_PORT=6379 \
 	msfidelis/boreal
 ```
 
@@ -177,4 +177,255 @@ $ curl -X POST \
 SELECT CONCAT_WS(`,`,`First name`,`Second name`,`Last Name`
 ```
 
+# ADMINISTRATIVE COMMANDS
 
+## FLUSH TABLES
+
+```bash
+curl -X GET http://localhost:1337/v1/_FLUSHTABLES
+```
+
+### RESPONSE
+
+```json
+{
+  "info": {
+    "query_uuid": "6106fca4-998f-43a9-937f-c0f322846df1",
+    "sql": "FLUSH TABLES",
+    "affectedRows": 0
+  },
+  "data": [
+    {
+      "fieldCount": 0,
+      "affectedRows": 0,
+      "insertId": 0,
+      "serverStatus": 2,
+      "warningCount": 0,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    },
+    null
+  ]
+}
+```
+
+## RESET QUERY CACHE
+
+```bash
+$ curl -X GET http://localhost:1337/v1/_RESETQUERYCACHE
+```
+
+### Response
+
+```json
+{
+  "info": {
+    "query_uuid": "72b50bb8-c1c2-4d00-bf69-0257e805973c",
+    "sql": "RESET QUERY CACHE",
+    "affectedRows": 0
+  },
+  "data": [
+    {
+      "fieldCount": 0,
+      "affectedRows": 0,
+      "insertId": 0,
+      "serverStatus": 2,
+      "warningCount": 0,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    },
+    null
+  ]
+}
+```
+## FLUSH QUERY CACHE
+
+```bash
+$ curl -X GET http://localhost:1337/v1/_FLUSHQUERYCACHE
+```
+
+### RESPONSE
+
+```json
+{
+  "info": {
+    "query_uuid": "a1083c56-7f8b-46f9-acf6-9cdbf3ed74c8",
+    "sql": "FLUSH QUERY CACHE",
+    "affectedRows": 0
+  },
+  "data": [
+    {
+      "fieldCount": 0,
+      "affectedRows": 0,
+      "insertId": 0,
+      "serverStatus": 2,
+      "warningCount": 0,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    },
+    null
+  ]
+}
+```
+## SHOW PROCESSLIST
+
+```bash
+$ curl -X GET http://localhost:1337/v1/_PROCESSLIST
+```
+
+### RESPONSE
+```json
+{
+  "info": {
+    "query_uuid": "9dfdc45b-dfc1-4c05-9533-6a9d524e94e8",
+    "sql": "SHOW PROCESSLIST"
+  },
+  "data": [
+    [
+      {
+        "Id": 46,
+        "User": "root",
+        "Host": "172.19.0.1:48240",
+        "db": "test",
+        "Command": "Sleep",
+        "Time": 5685,
+        "State": "",
+        "Info": null
+      },
+      {
+        "Id": 47,
+        "User": "root",
+        "Host": "172.19.0.1:48242",
+        "db": null,
+        "Command": "Sleep",
+        "Time": 5704,
+        "State": "",
+        "Info": null
+      },
+      {
+        "Id": 322,
+        "User": "root",
+        "Host": "172.19.0.1:48794",
+        "db": "test",
+        "Command": "Sleep",
+        "Time": 2080,
+        "State": "",
+        "Info": null
+      }
+    ]
+    ...
+}
+```
+
+## SHOW CREATE TABLE
+
+```bash
+$ curl -X GET http://localhost:1337/v1/_SHOWCREATE/{table}
+```
+
+### RESPONSE
+
+```json
+{
+  "info": {
+    "query_uuid": "7bf77111-f774-4cdc-89cb-46f183b7d264",
+    "sql": "SHOW CREATE TABLE users"
+  },
+  "data": [
+    [
+      {
+        "Table": "users",
+        "Create Table": "CREATE TABLE `users` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `name` varchar(50) NOT NULL,\n  `age` int(11) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1"
+      }
+    ]
+  ]
+  ...
+}
+```
+
+## DESCRIBE TABLE
+
+```
+$ curl -X GET http://localhost:1337/v1/_DESCRIBE/users
+```
+
+```json
+{
+  "info": {
+    "query_uuid": "f5f8a6ae-f9c1-4a6d-b304-15f0a3eedd05",
+    "sql": "DESCRIBE users"
+  },
+  "data": [
+    [
+      {
+        "Field": "id",
+        "Type": "int(11)",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment"
+      },
+      {
+        "Field": "name",
+        "Type": "varchar(50)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      },
+      {
+        "Field": "age",
+        "Type": "int(11)",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": ""
+      }
+    ]
+    ...
+}
+```
+
+## SHOW TABLES
+
+```
+$ curl -X GET http://localhost:1337/v1/_SHOWTABLES
+```
+
+### RESPONSE
+
+```json
+{
+  "info": {
+    "query_uuid": "1b0a3fc0-81a8-4d15-8c71-d96b9ca9ebbb",
+    "sql": "SHOW TABLES\t"
+  },
+  "data": [
+    [
+      {
+        "Tables_in_test": "users"
+      }
+    ],
+    [
+      {
+        "catalog": "def",
+        "db": "information_schema",
+        "table": "TABLE_NAMES",
+        "orgTable": "TABLE_NAMES",
+        "name": "Tables_in_test",
+        "orgName": "TABLE_NAME",
+        "charsetNr": 33,
+        "length": 192,
+        "type": 253,
+        "flags": 1,
+        "decimals": 0,
+        "zeroFill": false,
+        "protocol41": true
+      }
+    ]
+  ]
+}
+```
