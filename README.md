@@ -1,4 +1,4 @@
-# boreal-nodev1
+# Boreal Server
 REST Provider for MySQL, MariaDB and Amazon Aurora servers running in containers! 
 
 [![Build Status](https://secure.travis-ci.org/msfidelis/boreal.png?branch=master)](http://travis-ci.org/msfidelis/boreal) [![Code Climate](https://codeclimate.com/github/msfidelis/boreal/badges/gpa.svg)](https://codeclimate.com/github/msfidelis/boreal)
@@ -8,7 +8,7 @@ REST Provider for MySQL, MariaDB and Amazon Aurora servers running in containers
 
 # RUN 
 
-## RESTfy a simple server
+## RESTfy a simple MySQL server
 
 ``` bash
 $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
@@ -19,7 +19,7 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	msfidelis/boreal
 ```
 
-## RESTfy a master and read server 
+## RESTfy a Master and Read server 
 
 ``` bash
 $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
@@ -35,7 +35,7 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	msfidelis/boreal
 ```
 
-## RESTFy a mysql server and Memcached Server
+## RESTFy a MySQL Server and Memcached Server
 
 ``` bash
 $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
@@ -48,7 +48,7 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	msfidelis/boreal
 ```
 
-## RESTFy a mysql server and Redis Server
+## RESTFy a MySQL Server and Redis Server
 
 ``` bash
 $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
