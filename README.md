@@ -15,7 +15,7 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	-e MYSQL_MASTER_USER=root \
 	-e MYSQL_MASTER_PASS=pass \
 	-e MYSQL_MASTER_SCHEMA=payments \
-    -e MYSQL_MASTER_PORT=3306 \
+     	-e MYSQL_MASTER_PORT=3306 \
 	msfidelis/boreal
 ```
 
@@ -26,12 +26,12 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	-e MYSQL_MASTER_USER=root \
 	-e MYSQL_MASTER_PASS=pass \
 	-e MYSQL_MASTER_SCHEMA=payments \
-    -e MYSQL_MASTER_PORT=3306 \
-    -e MYSQL_READ_SERVER=http://read.rds.com.br \
+    	-e MYSQL_MASTER_PORT=3306 \
+    	-e MYSQL_READ_SERVER=http://read.rds.com.br \
 	-e MYSQL_READ_USER=root \
 	-e MYSQL_READ_PASS=pass \
 	-e MYSQL_READ_SCHEMA=payments_replica \
-    -e MYSQL_READ_PORT=3306 \
+    	-e MYSQL_READ_PORT=3306 \
 	msfidelis/boreal
 ```
 
@@ -42,9 +42,9 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	-e MYSQL_MASTER_USER=root \
 	-e MYSQL_MASTER_PASS=pass \
 	-e MYSQL_MASTER_SCHEMA=payments \
-    -e MYSQL_MASTER_PORT=3306 \
-    -e MEMCACHED_SERVER=http://memcached.com.br \
-    -e MEMCACHED_PORT=11211 \
+    	-e MYSQL_MASTER_PORT=3306 \
+    	-e MEMCACHED_SERVER=http://memcached.com.br \
+    	-e MEMCACHED_PORT=11211 \
 	msfidelis/boreal
 ```
 
@@ -55,9 +55,9 @@ $ docker run -e MYSQL_MASTER_SERVER=http://master.rds.com.br \
 	-e MYSQL_MASTER_USER=root \
 	-e MYSQL_MASTER_PASS=pass \
 	-e MYSQL_MASTER_SCHEMA=payments \
-    -e MYSQL_MASTER_PORT=3306 \
-    -e REDIS_SERVER=http://redis.com.br \
-    -e REDIS_PORT=6379 \
+    	-e MYSQL_MASTER_PORT=3306 \
+    	-e REDIS_SERVER=http://redis.com.br \
+    	-e REDIS_PORT=6379 \
 	msfidelis/boreal
 ```
 
