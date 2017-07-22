@@ -2,7 +2,7 @@
 
 let knexfile = require('./knexfile');
 
-if (process.env.ENVIRONMENT.toLowerCase() == 'test') {
+if (process.env.ENVIRONMENT == 'test') {
     var mode = 'test';
 } else {
     var mode = 'read';
