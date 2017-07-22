@@ -1,48 +1,41 @@
-'use strict'
+'use strict';
 
-/**
- * Hapi JS
- */
-let Hapi = require('hapi')  
+const Hapi = require('hapi');
+const Router = require('hapi-router');
 
 /**
  * Server Configuration
  * @type {Hapi}
  */
-let server = new Hapi.Server()
+let server = new Hapi.Server();
 
-/**
- * Connection Params
- */
 server.connection({
-  port: 1337,
-  routes: {
-    json: {
-      space: 2
+    port: 1337,
+    routes: {
+        json: {
+            space: 2
+        }
     }
-  }
-})
+});
 
 /**
  * Plugin Register - Hapi-Router
  */
 server.register({
-  register: require('hapi-router'),
-  options: {
-    routes: 'boreal/v*/*.js' 
-  }
-}, function (err) {
-  if (err) throw err;
-})
+    register: Router,
+    options: {
+        routes: 'boreal/v*/*.js'
+    }
+}, (err) => {
+    if (err) throw err;
+});
 
 /**
  * Start Server
  */
 server.start((err) => {
-  if (err) {
-    throw err;
-  }
+    if (err) throw err;
+    console.log('Boreal Server Running At: ', server.info.uri);
+});
 
-  console.log('Boreal Server Running At: ', server.info.uri)
-
-})
+module.exports = server;
