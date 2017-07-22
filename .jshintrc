@@ -1,0 +1,15 @@
+{
+    "esversion": 6,
+    "node": true,
+    "esnext": true,
+    "camelcase": true,
+    "strict": true,
+    "env": {
+        "node": true
+    },
+    "globals": {
+        "module": true,
+        "exports": true,
+        "require": false
+    }
+}
