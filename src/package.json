@@ -1,21 +1,27 @@
 {
-  "name": "boreal",
-  "version": "1.0.0",
-  "description": "Boreal MySQL Restfy",
-  "main": "index.js",
-  "dependencies": {
-    "boom": "^5.0.0",
-    "hapi": "^16.1.1",
-    "hapi-router": "^3.5.0",
-    "knex": "^0.13.0",
-    "memjs": "^0.10.2",
-    "mysql": "^2.13.0",
-    "redis": "^2.7.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "npm test"
-  },
-  "author": "Matheus Fidelis",
-  "license": "ISC"
+    "name": "boreal",
+    "version": "1.0.0",
+    "description": "Boreal MySQL Restfy",
+    "main": "index.js",
+    "dependencies": {
+        "boom": "^5.0.0",
+        "hapi": "^16.1.1",
+        "hapi-router": "^3.5.0",
+        "knex": "^0.13.0",
+        "memjs": "^0.10.2",
+        "mysql": "^2.13.0",
+        "redis": "^2.7.1"
+    },
+    "devDependencies": {
+        "chai": "^4.1.0",
+        "jshint": "^2.9.5",
+        "lab": "^14.1.1",
+        "sqlite3": "^3.1.8"
+    },
+    "scripts": {
+        "test": "./node_modules/.bin/lab -v -l",
+        "dev": "nodemon index.js"
+    },
+    "author": "Matheus Fidelis",
+    "license": "ISC"
 }
