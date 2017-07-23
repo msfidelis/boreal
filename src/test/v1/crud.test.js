@@ -46,7 +46,7 @@ describe('SIMPLE CRUD TEST', () => {
 
         let options = {
             method: 'GET',
-            url: '/v1/usersToTest?_where:id=1',
+            url: '/v1/usersToTest?_where:id=1'
         };
 
         server.inject(options, (response) => {
