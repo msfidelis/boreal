@@ -92,7 +92,7 @@ describe('SIMPLE CRUD TEST', () => {
             //Test Updated Values
             let optionsSelect = {
                 method: 'GET',
-                url: '/v1/usersToTest?_where:id=1',
+                url: '/v1/usersToTest?_where:id=1'
             };
 
             server.inject(optionsSelect, (response) => {
@@ -106,9 +106,9 @@ describe('SIMPLE CRUD TEST', () => {
                 expect(response.result.info).to.have.property('affectedRows');
 
                 expect(response.result.info.sql).to.equal('select * from `usersToTest`');
-                expect(response.result.data[0].id).to.equal(1);;
+                expect(response.result.data[0].id).to.equal(1);
                 expect(response.result.data[0].age).to.equal(22);
-                expect(response.result.data[0].name).to.equal('Matheus Fidelis UPDATED');;
+                expect(response.result.data[0].name).to.equal('Matheus Fidelis UPDATED');
 
                 done();
             });
@@ -147,8 +147,7 @@ describe('SIMPLE CRUD TEST', () => {
                 data: [
                     { name: 'Matheus Fidelis', age: 21 },
                     { name: 'Barack Obama', age: 55 },
-                    { name: 'Elon Musk', age: 46 },
-
+                    { name: 'Elon Musk', age: 46 }
                 ]
             }
         };
@@ -167,7 +166,7 @@ describe('SIMPLE CRUD TEST', () => {
             //Test Bulk Inserted Values
             let optionsSelect = {
                 method: 'GET',
-                url: '/v1/usersToTest',
+                url: '/v1/usersToTest'
             };
 
             server.inject(optionsSelect, (response) => {
