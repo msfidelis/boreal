@@ -16,6 +16,11 @@ const READ_SCHEMA = process.env.MYSQL_READ_SCHEMA ? process.env.MYSQL_READ_SCHEM
 const READ_USER = process.env.MYSQL_READ_USER ? process.env.MYSQL_READ_USER : MASTER_USER
 const READ_PASS = process.env.MYSQL_READ_PASS ? process.env.MYSQL_READ_PASS : MASTER_PASS
 
+const path = require('path');
+const dbPath = path.join(__dirname, '../../../../test/temp/test.sqlite')
+
+console.log(dbPath)
+
 /**
  * Ambientes disponíveis no Knex
  * @type {Object}
@@ -59,9 +64,10 @@ module.exports = {
     },
 
     test: {
-        client: 'sqlite3',
+        dialect: 'sqlite3',
         connection: {
-            filename: "./mydb.sqlite"
+            filename: dbPath,
+            charset: 'utf8'
         },
         migrations: {
             tableName: 'boreal_migrations'

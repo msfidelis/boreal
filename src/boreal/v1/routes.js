@@ -78,7 +78,7 @@ module.exports = [
     {
         method: "POST",
         path: "/v1/{table}",
-        handler: function(req, res) {
+        handler: (req, res) => {
             var execution = {};
 
             master(req.params.table)
@@ -88,16 +88,16 @@ module.exports = [
                         query_uuid: obj.__knexQueryUid,
                         sql: obj.sql,
                         bindings: obj.bindings,
-                        affectedRows: obj.response[0].affectedRows
+                        affectedRows: obj.response ? obj.response[0].affectedRows : null
                     };
                 })
-                .then(result => {
-                    execution.data = result;
+                .then((result) => {
+                    execution.created_id = result;
                     res(execution).code(201);
                 })
-                .catch(err => {
-                    console.log(err);
-                    res(err).code(500);
+                .catch((err) => {
+                    console.log("ERR: ", err);
+                    boom.badRequest(err);
                 });
         }
     },
@@ -108,7 +108,7 @@ module.exports = [
     {
         method: "PUT",
         path: "/v1/{table}",
-        handler: function(req, res) {
+        handler: (req, res) => {
             let where = req.payload.where ? req.payload.where : "";
             var execution = {};
 

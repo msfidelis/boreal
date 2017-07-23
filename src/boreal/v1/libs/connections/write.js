@@ -1,14 +1,7 @@
 'use strict';
 
 const knexfile = require('./knexfile');
-
-if (process.env.ENVIRONMENT == 'test') {
-    var mode = 'test';
-} else {
-    var mode = 'master';
-}
-
-const knex = require('knex')(knexfile[mode]);
+const knex = require('knex')(knexfile['master']);
 
 /**
  * Conexão com o Banco de Dados

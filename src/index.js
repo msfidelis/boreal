@@ -10,7 +10,7 @@ const Router = require('hapi-router');
 let server = new Hapi.Server();
 
 server.connection({
-    port: 1337,
+    port: process.env.SERVER_PORT || 1337,
     routes: {
         json: {
             space: 2
