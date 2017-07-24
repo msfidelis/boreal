@@ -28,7 +28,7 @@ module.exports = [
         path: '/v1/_FLUSHTABLES',
         handler: (req, res) => {
 
-            let query = "FLUSH TABLES"
+            let query = "FLUSH TABLES";
             var execution = {};
 
             read.raw(query)
@@ -52,7 +52,7 @@ module.exports = [
                     exection.error = err
                     res(execution).code(500);
 
-                })
+                });
 
         }
     },
@@ -281,7 +281,7 @@ module.exports = [
         path: '/v1/_ANALYZE/{table}',
         handler: (req, res) => {
 
-            let query = "ANALYZE TABLE	" + req.params.table;
+            let query = "ANALYZE TABLE " + req.params.table;
 
             var execution = {};
 
@@ -307,16 +307,6 @@ module.exports = [
                     res(execution).code(500);
 
                 });
-        }
-    },
-
-    {
-        method: 'PUT',
-        path: '/v1/mock',
-        handler: (req, res) => {
-
-            res(req.payload.name);
-
         }
     }
 ];
