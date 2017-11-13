@@ -13,6 +13,7 @@ before_script:
   - docker pull mysql:5.7
   - docker run -d -p 2201:3306 -e "MYSQL_ROOT_PASSWORD=root" -e "MYSQL_DATABASE=test" mysql:5.7
   - cd src/; npm install
+  - sleep 20
 
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
