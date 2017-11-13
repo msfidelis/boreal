@@ -18,7 +18,7 @@
         "lab": "^14.1.1"
     },
     "scripts": {
-        "test": "bash -c 'export NODE_ENV=test; export SERVER_PORT=9999; export MYSQL_MASTER_SERVER=0.0.0.0; export MYSQL_MASTER_USER=root; export MYSQL_MASTER_PASS=root; export MYSQL_MASTER_SCHEMA=test; ./node_modules/.bin/lab -v -l -m 150000 -a chai'",
+        "test": "bash -c 'export NODE_ENV=test; ./node_modules/.bin/lab -v -l -m 150000 -a chai'",
         "dev": "nodemon index.js"
     },
     "author": "Matheus Fidelis",
