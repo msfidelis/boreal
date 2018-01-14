@@ -26,14 +26,14 @@ server.register({
     options: {
         routes: 'boreal/v*/*.js'
     }
-}, (err) => {
+}, err => {
     if (err) throw err;
 });
 
 /**
  * Start Server
  */
-server.start((err) => {
+server.start(err => {
     if (err) throw err;
     console.log('Boreal Server Running At: ', server.info.uri);
 });
